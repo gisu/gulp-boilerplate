@@ -25,8 +25,7 @@ var gulp        = require('gulp'),
     header      = require('gulp-header'),
     notify      = require('gulp-notify'),
     bump        = require('gulp-bump'),
-    browserSync = require('browser-sync'),
-    changed     = require('gulp-changed');
+    browserSync = require('browser-sync');
 
 
 // Get some Data from the 'package.json'
@@ -56,6 +55,24 @@ var banner = ['/**',
 
 
 // --- Plugin Configuration --------------
+
+// Copy CSS Files from SRC to DIST
+gulp.task('drop-css', function () {
+  gulp.src('src/css/*.css')
+  .pipe(gulp.dest(targetDirCSS));
+});
+
+// Copy Markup Files from SRC to DIST
+gulp.task('drop-html', function () {
+  gulp.src('src/html/**/*.html')
+  .pipe(gulp.dest(targetDirBase));
+});
+
+// Copy JS Files from SRC to DIST
+gulp.task('drop-js', function () {
+  gulp.src('src/js/*.js')
+  .pipe(gulp.dest(targetDirJS));
+});
 
 // Browser Sync Task
 gulp.task('browser-sync', function() {
@@ -99,6 +116,10 @@ gulp.task('copy-static-files', function () {
   });
 });
 
+
+
+
+
 // ---- Bump Config ---------------
 
 // Update bower, component, npm at once:
@@ -129,8 +150,15 @@ gulp.task('banner-css', function(){
 
 // Internal Watch Task - Define the Directorys that need to be watched for changes
 gulp.task('watch', function() {
-  // xxxx
-  // gulp.watch(['dir to watch with fileending'], ['the task that need to be started']);
+  // CSS Changes
+  gulp.watch(['src/css/*.css'], ['drop-css']);
+
+  // HTML Changes
+  gulp.watch(['src/html/**/*.html'], ['drop-html']);
+
+  // JS Changes
+  gulp.watch(['src/js/*.js'], ['drop-js']);
+
 });
 
 // MAIN TASK BLOCK ------------------------------------------------------
@@ -139,11 +167,14 @@ gulp.task('watch', function() {
 // for your dist directory
 gulp.task('init', [
   'copy-static-files',
-  'copy-bower-js'
+  'copy-bower-js',
+  'drop-html',
+  'drop-css',
+  'drop-js'
 ]);
 
 // Default gulp Task 'gulp'
-gulp.task('default', ['browser-sync', 'watch-bin']);
+gulp.task('default', ['browser-sync', 'watch']);
 
 // Publish Task - Finalize your Dist Folder, minify the Files, check Code Quality etc.
 gulp.task('publish',[
