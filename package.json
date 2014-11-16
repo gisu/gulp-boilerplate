@@ -3,12 +3,12 @@
   "description": "PROJECT DESCRIPTION",
   "version": "0.0.1",
   "author": "AUTHOR",
-  "url": "AUTHOR@MAIL",
-  "homepage": "HOMEPAGE URL",
-  "bugs": "ISSUES URL",
+  "url": "AUTHOR@MAIL.ooo",
+  "homepage": "http://HOMEPAGEURL.ooo",
+  "bugs": "http://ISSUESURL.ooo",
   "repository": {
     "type": "git",
-    "url": "REPO URL"
+    "url": "http://REPOURL.ooo"
   },
   "directory": {
     "base": "dist/",

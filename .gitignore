@@ -3,5 +3,5 @@
 node_modules
 .DS_Store
 /icon.png
-/dist
+dist/
 src/bower-components
